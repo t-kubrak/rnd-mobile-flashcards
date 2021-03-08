@@ -18,7 +18,7 @@ const Item = ({ item, onPress, style }) => (
     </TouchableOpacity>
 );
 
-export default function DeckList() {
+export default function DeckList({ navigation }) {
     const [selectedId, setSelectedId] = useState(null);
 
     const renderItem = ({ item }) => {
@@ -27,7 +27,10 @@ export default function DeckList() {
         return (
             <Item
                 item={item}
-                onPress={() => setSelectedId(item.id)}
+                onPress={() => {
+                    setSelectedId(item.id)
+                    navigation.navigate('Deck')
+                }}
                 style={{ backgroundColor }}
             />
         );
