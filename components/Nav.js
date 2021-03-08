@@ -3,6 +3,7 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import DeckList from "./DeckList";
 import NewDeck from "./NewDeck";
+import Constants from 'expo-constants'
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -24,12 +25,11 @@ export default function Nav() {
             renderScene={renderScene}
             onIndexChange={setIndex}
             initialLayout={initialLayout}
+            style={styles}
         />
     );
 }
 
 const styles = StyleSheet.create({
-    scene: {
-        flex: 1,
-    },
+    paddingTop: Constants.statusBarHeight,
 });
