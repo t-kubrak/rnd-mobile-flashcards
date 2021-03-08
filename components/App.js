@@ -7,6 +7,10 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import DeckList from "./DeckList";
 import NewDeck from "./NewDeck";
 import Deck from "./Deck";
+import {createStore} from "redux";
+import middleware from '../middleware'
+import reducer from "../reducers"
+import {Provider} from "react-redux";
 
 const DeckListStack = createStackNavigator();
 
@@ -33,15 +37,19 @@ const Tab = Platform.OS === 'ios'
     ? createBottomTabNavigator()
     : createMaterialTopTabNavigator()
 
+const store = createStore(reducer, middleware)
+
 export default function App() {
     return (
-        <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
-            <NavigationContainer>
-                <Tab.Navigator>
-                    <Tab.Screen name="Decks" component={DeckListScreen} />
-                    <Tab.Screen name="New Deck" component={NewDeckScreen} />
-                </Tab.Navigator>
-            </NavigationContainer>
-        </View>
+        <Provider store={store}>
+            <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
+                <NavigationContainer>
+                    <Tab.Navigator>
+                        <Tab.Screen name="Decks" component={DeckListScreen} />
+                        <Tab.Screen name="New Deck" component={NewDeckScreen} />
+                    </Tab.Navigator>
+                </NavigationContainer>
+            </View>
+        </Provider>
     );
 }

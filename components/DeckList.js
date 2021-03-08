@@ -1,51 +1,66 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, FlatList, Text, StatusBar, View, TouchableOpacity} from "react-native";
+import {handleInitialData} from "../actions/shared";
+import {connect} from "react-redux"
+import {receiveDecks} from "../actions/decks";
 
-const DATA = [
-    {
-        id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-        title: "First Item",
-    },
-    {
-        id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-        title: "Second Item",
+const Item = ({ item, onPress, style }) => {
+    return (
+        <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
+            <Text style={styles.title}>{item.title}</Text>
+        </TouchableOpacity>
+    );
+}
+
+class DeckList extends React.Component {
+    state = {
+        ready: false
     }
-];
 
-const Item = ({ item, onPress, style }) => (
-    <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
-        <Text style={styles.title}>{item.title}</Text>
-    </TouchableOpacity>
-);
+    componentDidMount() {
+        handleInitialData()
+            .then(([decks]) => {
+                this.props.dispatch(receiveDecks(decks))
+            })
+            .then(() => this.setState(() => ({ready: true})))
+    }
 
-export default function DeckList({ navigation }) {
-    const [selectedId, setSelectedId] = useState(null);
-
-    const renderItem = ({ item }) => {
-        const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
-
+    renderItem = ({item}, ...rest) => {
         return (
             <Item
                 item={item}
                 onPress={() => {
-                    setSelectedId(item.id)
-                    navigation.navigate('Deck')
+                    this.props.navigation.navigate('Deck', { id: item.id })
                 }}
-                style={{ backgroundColor }}
             />
         );
     };
 
+    render() {
+        if (this.state.ready === false) {
+            return (<Text>Loading...</Text>)
+        }
 
-    return (
-        <FlatList
-            data={DATA}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-            extraData={selectedId}
-        />
-    );
+        const {decks} = this.props
+        const data = Object.entries(decks).map(e => e[1])
+        return (
+            <FlatList
+                data={data}
+                renderItem={this.renderItem}
+                keyExtractor={(item) => item.id}
+                extraData={this.state.selectedId}
+            />
+        );
+    }
 }
+
+function mapStateToProps({decks}) {
+    return {
+        decks
+    }
+}
+
+export default connect(mapStateToProps)(DeckList)
 
 const styles = StyleSheet.create({
     container: {
