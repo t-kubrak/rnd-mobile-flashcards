@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Text, View } from 'react-native';
+import {StatusBar, StyleSheet, Button, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -7,14 +7,6 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import DeckList from "./DeckList";
 import NewDeck from "./NewDeck";
 import Deck from "./Deck";
-
-function DetailsScreen() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Details!</Text>
-        </View>
-    );
-}
 
 const DeckListStack = createStackNavigator();
 
@@ -43,11 +35,13 @@ const Tab = Platform.OS === 'ios'
 
 export default function App() {
     return (
-        <NavigationContainer>
-            <Tab.Navigator>
-                <Tab.Screen name="Decks" component={DeckListScreen} />
-                <Tab.Screen name="New Deck" component={NewDeckScreen} />
-            </Tab.Navigator>
-        </NavigationContainer>
+        <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
+            <NavigationContainer>
+                <Tab.Navigator>
+                    <Tab.Screen name="Decks" component={DeckListScreen} />
+                    <Tab.Screen name="New Deck" component={NewDeckScreen} />
+                </Tab.Navigator>
+            </NavigationContainer>
+        </View>
     );
 }
