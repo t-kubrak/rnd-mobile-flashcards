@@ -11,6 +11,7 @@ import {createStore} from "redux";
 import middleware from '../middleware'
 import reducer from "../reducers"
 import {Provider} from "react-redux";
+import NewCard from "./NewCard";
 
 const DeckListStack = createStackNavigator();
 
@@ -19,6 +20,7 @@ function DeckListScreen() {
         <DeckListStack.Navigator>
             <DeckListStack.Screen name="Decks" component={DeckList} />
             <DeckListStack.Screen name="Deck" component={Deck} />
+            <DeckListStack.Screen name="Add Card" component={NewCard} />
         </DeckListStack.Navigator>
     );
 }
@@ -28,7 +30,7 @@ const NewDeckStack = createStackNavigator();
 function NewDeckScreen() {
     return (
         <NewDeckStack.Navigator>
-            <NewDeckStack.Screen name="Settings" component={NewDeck} />
+            <NewDeckStack.Screen name="New Deck" component={NewDeck} />
         </NewDeckStack.Navigator>
     );
 }

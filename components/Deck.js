@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, Button} from "react-native";
 import {connect} from "react-redux";
 import {useTheme} from "@react-navigation/native";
 
-function Deck({deck}) {
+function Deck({deck, navigation}) {
     const { colors } = useTheme();
 
     return (
@@ -12,7 +12,7 @@ function Deck({deck}) {
             <Text>{deck.questions.length} cards</Text>
             <View style={{marginTop: 15}}>
                 <Button
-                    onPress={() => {}}
+                    onPress={() => {navigation.navigate('Add Card', { deckId: deck.id })}}
                     title="Add Card"
                     color={colors.primary}
                 />
