@@ -10,7 +10,6 @@ function NewCard({deck, dispatch, navigation}) {
     const [question, onQuestionChange] = React.useState(null);
     const [answer, onAnswerChange] = React.useState(null);
     const card = {question, answer}
-    console.log(deck);
 
     const onSubmit = () => {
         saveCardToDeck(deck.id, card)

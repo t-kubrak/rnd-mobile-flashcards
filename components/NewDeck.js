@@ -1,19 +1,54 @@
 import React from 'react';
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, View, TextInput, Button} from "react-native";
+import {connect} from "react-redux";
+import {useTheme} from "@react-navigation/native";
+import {saveDeck} from "../utils/data";
+import {addDeck} from "../actions/decks";
 
-export default function NewDeck() {
+function NewDeck({dispatch, navigation}) {
+    const { colors } = useTheme();
+    const [title, onTitleChange] = React.useState(null);
+
+
+    const onSubmit = () => {
+        saveDeck(title)
+            .then((deck) => {
+                dispatch(addDeck(deck))
+            })
+            .then(() => {
+                navigation.navigate('Decks')
+            })
+    }
+
     return (
         <View style={styles.container}>
-            <Text>New Deck</Text>
+            <Text style={styles.title}>What is the title of your new deck?</Text>
+            <TextInput
+                style={{ height: 40, width:250,  borderColor: 'gray', borderWidth: 1, marginTop: 50 }}
+                onChangeText={text => onTitleChange(text)}
+                value={title}
+                placeholder='Deck Title'
+            />
+            <View style={{marginTop: 50}}>
+                <Button
+                    onPress={onSubmit}
+                    title="Submit"
+                    color={colors.primary}
+                />
+            </View>
         </View>
     );
 }
 
+export default connect()(NewDeck)
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
     },
+    title: {
+        fontSize: 24
+    }
 });

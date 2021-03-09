@@ -25,9 +25,29 @@ let decks = {
     }
 }
 
+function generateUID () {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+}
+
 export function getDecks () {
     return new Promise((res, rej) => {
         res({...decks})
+    })
+}
+
+function createDeckFromTitle(title) {
+    return {id: generateUID(), title, questions: []};
+}
+
+export function saveDeck (title) {
+    const deck = createDeckFromTitle(title)
+
+    return new Promise((res, rej) => {
+        decks = {
+            ...decks,
+            [deck.id]: deck
+        }
+        res(deck)
     })
 }
 
