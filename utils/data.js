@@ -27,6 +27,6 @@ let decks = {
 
 export function getDecks () {
     return new Promise((res, rej) => {
-        setTimeout(() => res({...decks}), 1000)
+        res({...decks})
     })
 }
