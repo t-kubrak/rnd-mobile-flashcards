@@ -12,6 +12,7 @@ import middleware from '../middleware'
 import reducer from "../reducers"
 import {Provider} from "react-redux";
 import NewCard from "./NewCard";
+import Quiz from "./Quiz";
 
 const DeckListStack = createStackNavigator();
 
@@ -21,6 +22,7 @@ function DeckListScreen() {
             <DeckListStack.Screen name="Decks" component={DeckList} />
             <DeckListStack.Screen name="Deck" component={Deck} />
             <DeckListStack.Screen name="Add Card" component={NewCard} />
+            <DeckListStack.Screen name="Quiz" component={Quiz} />
         </DeckListStack.Navigator>
     );
 }

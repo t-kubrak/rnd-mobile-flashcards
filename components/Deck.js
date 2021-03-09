@@ -20,7 +20,7 @@ function Deck({deck, navigation}) {
 
             <View style={{marginTop: 15}}>
                 <Button
-                    onPress={() => {}}
+                    onPress={() => {navigation.navigate('Quiz', { id: deck.id })}}
                     title="Start Quiz"
                     color={colors.primary}
                 />
