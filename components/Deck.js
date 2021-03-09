@@ -1,19 +1,50 @@
 import React from 'react';
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, View, Button} from "react-native";
+import {connect} from "react-redux";
+import {useTheme} from "@react-navigation/native";
 
-export default function Deck({route}) {
+function Deck({deck}) {
+    const { colors } = useTheme();
+
     return (
         <View style={styles.container}>
-            <Text>{route.params.id}</Text>
+            <Text style={styles.title}>{deck.title}</Text>
+            <Text>{deck.questions.length} cards</Text>
+            <View style={{marginTop: 15}}>
+                <Button
+                    onPress={() => {}}
+                    title="Add Card"
+                    color={colors.primary}
+                />
+            </View>
+
+            <View style={{marginTop: 15}}>
+                <Button
+                    onPress={() => {}}
+                    title="Start Quiz"
+                    color={colors.primary}
+                />
+            </View>
         </View>
     );
 }
 
+function mapStateToProps({decks}, {route}) {
+    return {
+        deck: decks[route.params.id]
+    }
+}
+
+export default connect(mapStateToProps)(Deck)
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        marginTop: -100
+    },
+    title: {
+        fontSize: 24,
     },
 });

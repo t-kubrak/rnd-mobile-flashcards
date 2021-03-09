@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {StatusBar, StyleSheet, Button, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -39,11 +39,20 @@ const Tab = Platform.OS === 'ios'
 
 const store = createStore(reducer, middleware)
 
+const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        primary: '#387d51',
+        background: '#fff'
+    },
+};
+
 export default function App() {
     return (
         <Provider store={store}>
             <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
-                <NavigationContainer>
+                <NavigationContainer theme={MyTheme}>
                     <Tab.Navigator>
                         <Tab.Screen name="Decks" component={DeckListScreen} />
                         <Tab.Screen name="New Deck" component={NewDeckScreen} />
