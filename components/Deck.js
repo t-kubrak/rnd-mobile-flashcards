@@ -12,7 +12,7 @@ function Deck({deck, navigation}) {
             <Text>{deck.questions.length} cards</Text>
             <View style={{marginTop: 15}}>
                 <Button
-                    onPress={() => {navigation.navigate('Add Card', { deckId: deck.id })}}
+                    onPress={() => {navigation.navigate('Add Card', { id: deck.id })}}
                     title="Add Card"
                     color={colors.primary}
                 />

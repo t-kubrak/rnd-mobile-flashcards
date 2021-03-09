@@ -30,3 +30,16 @@ export function getDecks () {
         res({...decks})
     })
 }
+
+export function saveCardToDeck (deckId, card) {
+    return new Promise((res, rej) => {
+        decks = {
+            ...decks,
+            [deckId] : {
+                ...decks[deckId],
+                questions: decks[deckId].questions.concat([card])
+            }
+        }
+        res(card)
+    })
+}
