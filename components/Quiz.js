@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, Button, Pressable} from "react-native";
 import {connect} from "react-redux";
+import {clearLocalNotification, setLocalNotification} from "../utils/helpers";
 
 class Quiz extends React.Component {
     state = {
@@ -36,6 +37,8 @@ class Quiz extends React.Component {
         const lastQuestionId = deck.questions.length - 1
 
         if (currentQuestionId > lastQuestionId) {
+            clearLocalNotification().then(setLocalNotification)
+
             return (
                 <View style={styles.container}>
                     <Text style={styles.title}>

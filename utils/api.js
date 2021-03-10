@@ -3,16 +3,13 @@ import {decks} from "./data";
 
 export async function handleInitialData() {
     return Promise.all([
-        AsyncStorage.setItem('React', JSON.stringify(decks['React'])),
-        AsyncStorage.setItem('JavaScript', JSON.stringify(decks['JavaScript']))
+        AsyncStorage.setItem('decks', JSON.stringify(decks)),
     ]).then(async () => {
-        let decks = await getDecks();
-        let formattedDecks = {}
-
-        decks.map(([key, value]) => formattedDecks[key] = JSON.parse(value))
+        let decks = await AsyncStorage.getItem('decks');
+        decks = JSON.parse(decks)
 
         return new Promise((res, rej) => {
-            res(formattedDecks)
+            res(decks)
         })
     })
 }

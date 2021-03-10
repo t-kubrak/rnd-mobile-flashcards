@@ -1,5 +1,5 @@
-import * as React from 'react';
-import {StatusBar, StyleSheet, Button, Text, View } from 'react-native';
+import React from 'react';
+import {StatusBar, View } from 'react-native';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -13,6 +13,7 @@ import reducer from "../reducers"
 import {Provider} from "react-redux";
 import NewCard from "./NewCard";
 import Quiz from "./Quiz";
+import {setLocalNotification} from "../utils/helpers";
 
 const DeckListStack = createStackNavigator();
 
@@ -53,17 +54,23 @@ const MyTheme = {
     },
 };
 
-export default function App() {
-    return (
-        <Provider store={store}>
-            <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
-                <NavigationContainer theme={MyTheme}>
-                    <Tab.Navigator>
-                        <Tab.Screen name="Decks" component={DeckListScreen} />
-                        <Tab.Screen name="New Deck" component={NewDeckScreen} />
-                    </Tab.Navigator>
-                </NavigationContainer>
-            </View>
-        </Provider>
-    );
+export default class App extends React.Component {
+    componentDidMount() {
+        setLocalNotification()
+    }
+
+    render() {
+        return (
+            <Provider store={store}>
+                <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
+                    <NavigationContainer theme={MyTheme}>
+                        <Tab.Navigator>
+                            <Tab.Screen name="Decks" component={DeckListScreen} />
+                            <Tab.Screen name="New Deck" component={NewDeckScreen} />
+                        </Tab.Navigator>
+                    </NavigationContainer>
+                </View>
+            </Provider>
+        );
+    }
 }
