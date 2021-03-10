@@ -29,18 +29,18 @@ function createDeckFromTitle(title) {
 export async function saveDeck (title) {
     const deck = createDeckFromTitle(title)
 
-    await AsyncStorage.setItem(deck.id, JSON.stringify(deck))
+    await AsyncStorage.mergeItem('decks', JSON.stringify({[deck.id]: deck}))
 
     return deck
 }
 
 export async function saveCardToDeck (deckId, card) {
-    let deck = await AsyncStorage.getItem(deckId)
+    let decks = await AsyncStorage.getItem('decks')
 
-    deck = JSON.parse(deck)
-    deck.questions.push(card)
+    decks = JSON.parse(decks)
+    const deck = decks[deckId]
 
-    await AsyncStorage.setItem(deck.id, JSON.stringify(deck))
+    await AsyncStorage.mergeItem('decks', JSON.stringify({[deck.id]: deck.questions.push(card)}))
 
     return deck
 }
