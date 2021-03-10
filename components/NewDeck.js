@@ -11,9 +11,14 @@ function NewDeck({dispatch, navigation}) {
 
 
     const onSubmit = () => {
+        if (!title) {
+            return;
+        }
+
         saveDeck(title)
             .then((deck) => {
                 dispatch(addDeck(deck))
+                onTitleChange(null)
             })
             .then(() => {
                 navigation.navigate('Decks')

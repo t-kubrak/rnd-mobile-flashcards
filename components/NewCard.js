@@ -12,6 +12,10 @@ function NewCard({deck, dispatch, navigation}) {
     const card = {question, answer}
 
     const onSubmit = () => {
+        if (!card.question || !card.answer) {
+            return;
+        }
+
         saveCardToDeck(deck.id, card)
             .then(() => {
                 dispatch(addCard(deck.id, card))
