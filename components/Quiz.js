@@ -22,8 +22,16 @@ class Quiz extends React.Component {
         this.setState({isQuestionShown: !this.state.isQuestionShown})
     }
 
+    restartQuiz = () => {
+        this.setState({
+            currentQuestionId: 0,
+            correctAnswersCount: 0,
+            isQuestionShown: true
+        })
+    }
+
     render() {
-        const {deck} = this.props
+        const {deck, navigation} = this.props
         const {currentQuestionId, correctAnswersCount, isQuestionShown} = this.state
         const lastQuestionId = deck.questions.length - 1
 
@@ -33,6 +41,21 @@ class Quiz extends React.Component {
                     <Text style={styles.title}>
                         Your score: {Math.floor(correctAnswersCount / deck.questions.length * 100)}%
                     </Text>
+
+                    <View style={{marginTop: 30}}>
+                        <Button
+                            onPress={this.restartQuiz}
+                            title="Restart Quiz"
+                            color='#387d51'
+                        />
+                    </View>
+                    <View style={{marginTop: 30}}>
+                        <Button
+                            onPress={() => {navigation.navigate('Deck', { id: deck.id })}}
+                            title="Back to Deck"
+                            color='#7d385e'
+                        />
+                    </View>
                 </View>
             )
         }
@@ -53,7 +76,6 @@ class Quiz extends React.Component {
                             onPress={() => this.handleChoice(true)}
                             title="Correct"
                             color='green'
-                            value={true}
                         />
                     </View>
                     <View style={{marginTop: 30}}>
