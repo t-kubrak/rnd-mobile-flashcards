@@ -36,11 +36,12 @@ export async function saveDeck (title) {
 
 export async function saveCardToDeck (deckId, card) {
     let decks = await AsyncStorage.getItem('decks')
-
     decks = JSON.parse(decks)
-    const deck = decks[deckId]
 
-    await AsyncStorage.mergeItem('decks', JSON.stringify({[deck.id]: deck.questions.push(card)}))
+    const deck = decks[deckId]
+    deck.questions.push(card)
+
+    await AsyncStorage.mergeItem('decks', JSON.stringify({[deckId]: deck}))
 
     return deck
 }
