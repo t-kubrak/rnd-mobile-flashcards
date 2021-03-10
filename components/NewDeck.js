@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, Button} from "react-native";
+import {StyleSheet, Text, View, TextInput, Button, Keyboard, TouchableWithoutFeedback} from "react-native";
 import {connect} from "react-redux";
 import {useTheme} from "@react-navigation/native";
 import {saveDeck} from "../utils/api";
@@ -19,9 +19,10 @@ function NewDeck({dispatch, navigation}) {
             .then((deck) => {
                 dispatch(addDeck(deck))
                 onTitleChange(null)
+                return deck
             })
-            .then(() => {
-                navigation.navigate('Decks')
+            .then((deck) => {
+                navigation.navigate('Deck', {id: deck.id})
             })
     }
 
