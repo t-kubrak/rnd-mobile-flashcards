@@ -15,7 +15,8 @@ class Quiz extends React.Component {
 
         this.setState({
             correctAnswersCount: isCorrect ? correctAnswersCount + 1 : correctAnswersCount,
-            currentQuestionId: currentQuestionId + 1
+            currentQuestionId: currentQuestionId + 1,
+            isQuestionShown: true
         })
     }
 
