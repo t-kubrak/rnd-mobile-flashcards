@@ -5,7 +5,8 @@ import {connect} from "react-redux";
 class Quiz extends React.Component {
     state = {
         currentQuestionId: 0,
-        correctAnswersCount: 0
+        correctAnswersCount: 0,
+        isQuestionShown: true
     }
 
     handleChoice = (isCorrect) => {
@@ -17,30 +18,34 @@ class Quiz extends React.Component {
         })
     }
 
-    handleQuestionAnswer = () => {
-
+    handleFlip = () => {
+        this.setState({isQuestionShown: !this.state.isQuestionShown})
     }
 
     render() {
         const {deck} = this.props
-        const {currentQuestionId, correctAnswersCount} = this.state
+        const {currentQuestionId, correctAnswersCount, isQuestionShown} = this.state
         const lastQuestionId = deck.questions.length - 1
 
         if (currentQuestionId > lastQuestionId) {
             return (
                 <View style={styles.container}>
-                    <Text style={styles.title}>Your score: {Math.floor(correctAnswersCount/deck.questions.length*100)}%</Text>
+                    <Text style={styles.title}>
+                        Your score: {Math.floor(correctAnswersCount / deck.questions.length * 100)}%
+                    </Text>
                 </View>
             )
         }
+
+        const question = deck.questions[currentQuestionId];
 
         return (
             <View style={styles.containerOuter}>
                 <Text style={styles.questionCounter}>{currentQuestionId+1}/{deck.questions.length}</Text>
                 <View style={styles.container}>
-                    <Text style={styles.title}>{deck.questions[currentQuestionId].question}</Text>
-                    <Pressable onPress={this.handleQuestionAnswer}>
-                        <Text>Answer</Text>
+                    <Text style={styles.title}>{isQuestionShown ? question.question : question.answer}</Text>
+                    <Pressable onPress={this.handleFlip}>
+                        <Text style={styles.flip}>{isQuestionShown ? 'Answer' : 'Question'}</Text>
                     </Pressable>
 
                     <View style={{marginTop: 30}}>
@@ -83,10 +88,16 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 24,
+        textAlign: 'center'
     },
     questionCounter: {
         fontSize: 16,
         marginTop: 10,
         marginLeft: 10,
+    },
+    flip: {
+        fontSize: 18,
+        color: '#7d385e',
+        marginTop: 15,
     }
 });
