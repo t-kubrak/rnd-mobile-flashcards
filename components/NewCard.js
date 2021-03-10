@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, Button} from "react-native";
+import {StyleSheet, Text, View, TextInput, Button, Keyboard, TouchableWithoutFeedback} from "react-native";
 import {connect} from "react-redux";
 import {useTheme} from "@react-navigation/native";
 import {saveCardToDeck} from "../utils/api";
@@ -26,27 +26,31 @@ function NewCard({deck, dispatch, navigation}) {
     }
 
     return (
-        <View style={styles.container}>
-            <TextInput
-                style={{ height: 40, width:250,  borderColor: 'gray', borderWidth: 1 }}
-                onChangeText={text => onQuestionChange(text)}
-                value={question}
-                placeholder='Question...'
-            />
-            <TextInput
-                style={{ height: 40, width:250,  borderColor: 'gray', borderWidth: 1, marginTop: 50 }}
-                onChangeText={text => onAnswerChange(text)}
-                value={answer}
-                placeholder='Answer...'
-            />
-            <View style={{marginTop: 50}}>
-                <Button
-                    onPress={onSubmit}
-                    title="Submit"
-                    color={colors.primary}
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            <View style={styles.container}>
+                <TextInput
+                    style={{ height: 40, width:250,  borderColor: 'gray', borderWidth: 1 }}
+                    onChangeText={text => onQuestionChange(text)}
+                    value={question}
+                    placeholder='Question...'
+                    returnKeyType='next'
                 />
+                <TextInput
+                    style={{ height: 40, width:250,  borderColor: 'gray', borderWidth: 1, marginTop: 50 }}
+                    onChangeText={text => onAnswerChange(text)}
+                    value={answer}
+                    placeholder='Answer...'
+                    returnKeyType='done'
+                />
+                <View style={{marginTop: 50}}>
+                    <Button
+                        onPress={onSubmit}
+                        title="Submit"
+                        color={colors.primary}
+                    />
+                </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 }
 

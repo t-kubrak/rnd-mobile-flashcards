@@ -27,22 +27,25 @@ function NewDeck({dispatch, navigation}) {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>What is the title of your new deck?</Text>
-            <TextInput
-                style={{ height: 40, width:250,  borderColor: 'gray', borderWidth: 1, marginTop: 50 }}
-                onChangeText={text => onTitleChange(text)}
-                value={title}
-                placeholder='Deck Title'
-            />
-            <View style={{marginTop: 50}}>
-                <Button
-                    onPress={onSubmit}
-                    title="Submit"
-                    color={colors.primary}
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            <View style={styles.container}>
+                <Text style={styles.title}>What is the title of your new deck?</Text>
+                <TextInput
+                    style={{ height: 40, width:250,  borderColor: 'gray', borderWidth: 1, marginTop: 50 }}
+                    onChangeText={text => onTitleChange(text)}
+                    value={title}
+                    placeholder='Deck Title'
+                    returnKeyType='done'
                 />
+                <View style={{marginTop: 50}}>
+                    <Button
+                        onPress={onSubmit}
+                        title="Submit"
+                        color={colors.primary}
+                    />
+                </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
     );
 }
 
