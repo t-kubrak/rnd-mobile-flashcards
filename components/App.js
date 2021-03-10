@@ -48,6 +48,7 @@ const MyTheme = {
     colors: {
         ...DefaultTheme.colors,
         primary: '#387d51',
+        secondary: '#7d385e',
         background: '#fff'
     },
 };
