@@ -23,4 +23,4 @@ The following topics has been covered:
 Note: 
 - This app was tested on Android Studio emulator using Pixel 4 device (Android 10, API v. 29) 
 and on physical iOS device (v. 14).
-- Notification runs daily at 18:00. You can set it to `null` to show it immediately in Android emulator. 
+- Notification runs daily at 18:00 if the user hasn't finished at least one quiz. You can set it to `null` to show it immediately in Android emulator. 
