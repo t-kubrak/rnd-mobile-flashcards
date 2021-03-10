@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, TextInput, Button} from "react-native";
 import {connect} from "react-redux";
 import {useTheme} from "@react-navigation/native";
-import {saveDeck} from "../utils/data";
+import {saveDeck} from "../utils/api";
 import {addDeck} from "../actions/decks";
 
 function NewDeck({dispatch, navigation}) {

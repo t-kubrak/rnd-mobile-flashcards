@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, TextInput, Button} from "react-native";
 import {connect} from "react-redux";
 import {useTheme} from "@react-navigation/native";
-import {saveCardToDeck} from "../utils/data";
+import {saveCardToDeck} from "../utils/api";
 import {addCard} from "../actions/decks";
 
 function NewCard({deck, dispatch, navigation}) {

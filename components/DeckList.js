@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, FlatList, Text, StatusBar, View, TouchableOpacity} from "react-native";
-import {handleInitialData} from "../actions/shared";
+import {handleInitialData} from "../utils/api";
 import {connect} from "react-redux"
 import {receiveDecks} from "../actions/decks";
 
@@ -20,7 +20,7 @@ class DeckList extends React.Component {
 
     componentDidMount() {
         handleInitialData()
-            .then(([decks]) => {
+            .then((decks) => {
                 this.props.dispatch(receiveDecks(decks))
             })
             .then(() => this.setState(() => ({ready: true})))

@@ -1,4 +1,4 @@
-let decks = {
+export let decks = {
     React: {
         id: 'React',
         title: 'React',
